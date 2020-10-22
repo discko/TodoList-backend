@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/todolist-common/todolist-common.iml" filepath="$PROJECT_DIR$/todolist-common/todolist-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/todolist-parent.iml" filepath="$PROJECT_DIR$/todolist-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/todolist-persisitance/todolist-persisitance.iml" filepath="$PROJECT_DIR$/todolist-persisitance/todolist-persisitance.iml" />
+      <module fileurl="file://$PROJECT_DIR$/todolist-security/todolist-security.iml" filepath="$PROJECT_DIR$/todolist-security/todolist-security.iml" />
+      <module fileurl="file://$PROJECT_DIR$/todolist-service/todolist-service.iml" filepath="$PROJECT_DIR$/todolist-service/todolist-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/todolist-web/todolist-web.iml" filepath="$PROJECT_DIR$/todolist-web/todolist-web.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="todolist-common" />
+        <module name="todolist-persisitance" />
+        <module name="todolist-security" />
+        <module name="todolist-service" />
+        <module name="todolist-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="todolist-common" target="1.8" />
+      <module name="todolist-parent" target="1.8" />
+      <module name="todolist-persisitance" target="1.8" />
+      <module name="todolist-security" target="1.8" />
+      <module name="todolist-service" target="1.8" />
+      <module name="todolist-web" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
