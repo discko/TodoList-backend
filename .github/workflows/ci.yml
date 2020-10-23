@@ -145,12 +145,12 @@ jobs:
           sudo cp ${{env.SCP_TAR_DIR}}/$JarFile $TarDir
           sudo chmod 777 $TarDir/*
           cd /lib/systemd/system
-          if [ -e ${{env.SERVICE_NAME}} ];
+          if [ -e ${{env.SERVICE_NAME}}.service ];
           then
-              echo "${{env.SERVICE_NAME}} exists. stop it"
+              echo "${{env.SERVICE_NAME}}.service exists. stop it"
               sudo systemctl stop ${{env.SERVICE_NAME}};
               echo "remove it";
-              sudo rm ${{env.SERVICE_NAME}};
+              sudo rm ${{env.SERVICE_NAME}}.service;
           fi;
           echo "write service"
           sudo touch ${{env.SERVICE_NAME}}.service;
