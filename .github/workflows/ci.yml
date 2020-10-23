@@ -62,7 +62,7 @@ jobs:
       run: |
         wd=`pwd`
         echo "we are at "$wd
-        cd target
+        cd $BUILT_DIR
         ls
         if [ -e $JAR_NAME ]; then
           echo "::set-output name=found::true"
