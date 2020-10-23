@@ -145,7 +145,7 @@ jobs:
           sudo cp ${{env.SCP_TAR_DIR}}/$JarFile $TarDir
           sudo chmod 777 $TarDir/*
           cd /lib/systemd/system
-          if [ -e demo.service ];
+          if [ -e ${{env.SERVICE_NAME}} ];
           then
               echo "demo.service exists. stop it"
               sudo systemctl stop demo;
