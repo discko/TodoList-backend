@@ -9,7 +9,7 @@ on:
     branches: [ master, test, dev ]
 
 env:
-  BUILT_DIR: ${{ github.workspace }}/todolist-web/target
+  BUILT_DIR: todolist-web/target
   JAR_NAME: TodoList-Web.jar
   PROFILE: dev #default profile
 
@@ -88,7 +88,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     env:
-      TAR_STRIP_PATH: 4
+      TAR_STRIP_PATH:
       SCP_TAR_DIR: ~/todolist
       RUNTIME_DIR: /var/todolist
       SERVICE_NAME: todolist-web
