@@ -3,4 +3,4 @@ my-variables:
     env: product-web
 
 server:
-  port: 8080
+  port: 8084

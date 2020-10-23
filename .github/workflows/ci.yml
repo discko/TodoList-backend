@@ -9,24 +9,20 @@ on:
     branches: [ master, test, dev ]
 
 env:
-  BUILT_DIR: ${{ github.workspace }}/target
-  JAR_NAME: demo.jar
-  PROFILE: dev
+  BUILT_DIR: ${{ github.workspace }}/todolist-web/target
+  JAR_NAME: TodoList-Web.jar
+  PROFILE: dev #default profile
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     outputs:
       foundFile: ${{ steps.test_jar_exist.outputs.found }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
 
+    # change profile
     - name: check if test
       if: ${{ endsWith( github.ref, '/test' }}
       run: |
@@ -40,7 +36,7 @@ jobs:
         echo "change PROFILE to product"
 
 
-
+    # clone repository to VM
     - uses: actions/checkout@master
 
     - name: Check jdk
@@ -74,6 +70,7 @@ jobs:
           echo "::error file=demo.jar::file not found"
           exit 1
         fi
+
     - name: cache jar
       if: ${{ steps.test_jar_exist.outputs.foundFile }} == 'true'
       uses: actions/cache@v2
@@ -91,9 +88,9 @@ jobs:
     needs: build
     env:
       TAR_STRIP_PATH: 1
-      SCP_TAR_DIR: ~/demo
+      SCP_TAR_DIR: ~/todolist
       RUNTIME_DIR: /var/todolist
-      SERVICE_NAME: demo
+      SERVICE_NAME: todolist-web
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -113,6 +110,7 @@ jobs:
         key: ${{ secrets.CI_SSH_KEY }}
         script: |
           mkdir -p ${{env.SCP_TAR_DIR}}
+
     - name: send file by scp
       uses: appleboy/scp-action@master
       with:
@@ -170,3 +168,4 @@ jobs:
           sudo systemctl daemon-reload;
           echo "start service";
           sudo systemctl start ${{env.SERVICE_NAME}};
+          rm ${{env.SCP_TAR_DIR}}/${{env.JAR_NAME}}
