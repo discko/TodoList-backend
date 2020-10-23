@@ -44,7 +44,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>space.wudi.todolist.web.TodolistWebApplication</mainClass>
-                    <layout>ZIP</layout>
+                    <!--<layout>ZIP</layout>-->
+                    <executable>true</executable>
                 </configuration>
                 <executions>
                     <execution>
