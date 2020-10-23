@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>space.wudi</groupId>
-        <artifactId>todolist-parent</artifactId>
+        <artifactId>todolist-dependencies</artifactId>
         <relativePath>../pom.xml</relativePath>
         <version>0.0.1-SNAPSHOT</version>
     </parent>

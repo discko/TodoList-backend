@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/todolist-common/todolist-common.iml" filepath="$PROJECT_DIR$/todolist-common/todolist-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/todolist-dependencies/todolist-dependencies.iml" filepath="$PROJECT_DIR$/todolist-dependencies/todolist-dependencies.iml" />
       <module fileurl="file://$PROJECT_DIR$/todolist-parent.iml" filepath="$PROJECT_DIR$/todolist-parent.iml" />
       <module fileurl="file://$PROJECT_DIR$/todolist-persisitance/todolist-persisitance.iml" filepath="$PROJECT_DIR$/todolist-persisitance/todolist-persisitance.iml" />
       <module fileurl="file://$PROJECT_DIR$/todolist-security/todolist-security.iml" filepath="$PROJECT_DIR$/todolist-security/todolist-security.iml" />
