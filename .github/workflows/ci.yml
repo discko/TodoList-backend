@@ -54,7 +54,8 @@ jobs:
     - name: build
       run: |
         echo "current profile: "$PROFILE
-        mvn -B clean package -P $PROFILE
+        mvn -B clean install -P $PROFILE -Dmaven.test.skip=true;
+        mvn -B clean package -P $PROFILE -Dmaven.test.skip=true;
 
     - name: test existance
       id: test_jar_exist
