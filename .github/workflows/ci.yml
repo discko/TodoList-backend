@@ -68,7 +68,7 @@ jobs:
           echo "::set-output name=found::true"
         else
           echo "::set-output name=found::false"
-          echo "::error file=demo.jar::file not found"
+          echo "::error file=$JAR_NAME::file not found"
           exit 1
         fi
 
@@ -147,19 +147,19 @@ jobs:
           cd /lib/systemd/system
           if [ -e ${{env.SERVICE_NAME}} ];
           then
-              echo "demo.service exists. stop it"
-              sudo systemctl stop demo;
+              echo "${{env.SERVICE_NAME}} exists. stop it"
+              sudo systemctl stop ${{env.SERVICE_NAME}};
               echo "remove it";
-              sudo rm demo.service;
+              sudo rm ${{env.SERVICE_NAME}};
           fi;
           echo "write service"
           sudo touch ${{env.SERVICE_NAME}}.service;
           echo "[Unit]" | sudo tee -a ${{env.SERVICE_NAME}}.service;
-          echo "Description=demo" | sudo tee -a ${{env.SERVICE_NAME}}.service;
+          echo "Description=${{env.SERVICE_NAME}}" | sudo tee -a ${{env.SERVICE_NAME}}.service;
           echo "After=syslog.target" | sudo tee -a ${{env.SERVICE_NAME}}.service;
           echo "" | sudo tee -a ${{env.SERVICE_NAME}}.service;
-          echo "[Service]" | sudo tee -a demo.service;
-          echo "User=root" | sudo tee -a demo.service;
+          echo "[Service]" | sudo tee -a ${{env.SERVICE_NAME}}.service;
+          echo "User=root" | sudo tee -a ${{env.SERVICE_NAME}}.service;
           echo "ExecStart=$TarDir/$JarFile" | sudo tee -a ${{env.SERVICE_NAME}}.service;
           echo "SuccessExitStatus=143" | sudo tee -a ${{env.SERVICE_NAME}}.service;
           echo "" | sudo tee -a ${{env.SERVICE_NAME}}.service;
