@@ -24,13 +24,13 @@ jobs:
 
     # change profile
     - name: check if test
-      if: ${{ endsWith( github.ref, '/test' }}
+      if: ${{ endsWith( github.ref, '/test' ) }}
       run: |
         echo "PROFILE=test" >>$GITHUB_ENV
         echo "change PROFILE to test"
 
     - name: check if master
-      if: ${{ endsWith( github.ref, '/master' }}
+      if: ${{ endsWith( github.ref, '/master' ) }}
       run: |
         echo "PROFILE=product" >> $GITHUB_ENV
         echo "change PROFILE to product"
