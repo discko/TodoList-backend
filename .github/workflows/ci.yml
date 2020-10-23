@@ -1,0 +1,172 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build And Deploy Demo
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  workflow_dispatch:
+    branches: [ master, test, dev ]
+
+env:
+  BUILT_DIR: ${{ github.workspace }}/target
+  JAR_NAME: demo.jar
+  PROFILE: dev
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    outputs:
+      foundFile: ${{ steps.test_jar_exist.outputs.found }}
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+
+    - name: check if test
+      if: ${{ endsWith( github.ref, '/test' }}
+      run: |
+        echo "PROFILE=test" >>$GITHUB_ENV
+        echo "change PROFILE to test"
+
+    - name: check if master
+      if: ${{ endsWith( github.ref, '/master' }}
+      run: |
+        echo "PROFILE=product" >> $GITHUB_ENV
+        echo "change PROFILE to product"
+
+
+
+    - uses: actions/checkout@master
+
+    - name: Check jdk
+      uses: actions/setup-java@v1.4.3
+      with:
+        java-version: 1.8
+
+    - name: mvn prepare
+      id: mvn_cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('./pom.xml') }}
+
+    - name: build
+      run: |
+        echo "current profile: "$PROFILE
+        mvn -B clean package -P $PROFILE
+
+    - name: test existance
+      id: test_jar_exist
+      run: |
+        wd=`pwd`
+        echo "we are at "$wd
+        cd target
+        ls
+        if [ -e $JAR_NAME ]; then
+          echo "::set-output name=found::true"
+        else
+          echo "::set-output name=found::false"
+          echo "::error file=demo.jar::file not found"
+          exit 1
+        fi
+    - name: cache jar
+      if: ${{ steps.test_jar_exist.outputs.foundFile }} == 'true'
+      uses: actions/cache@v2
+      with:
+        path: ${{ env.BUILT_DIR }}/${{ env.JAR_NAME }}
+        key: ${{ runner.os }}-release-${{github.sha}}
+
+    - name: post output
+      run:
+        echo "build finished"
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      TAR_STRIP_PATH: 1
+      SCP_TAR_DIR: ~/demo
+      RUNTIME_DIR: /var/todolist
+      SERVICE_NAME: demo
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+    - name: restore jar
+      uses: actions/cache@v2
+      with:
+        path: ${{ env.BUILT_DIR }}/${{ env.JAR_NAME }}
+        key: ${{ runner.os }}-release-${{github.sha}}
+
+    - name: ssh before scp
+      uses: appleboy/ssh-action@v0.1.3
+      with:
+        host: ${{ secrets.CI_HOST }}
+        port: ${{ secrets.CI_SSH_PORT }}
+        username: ${{ secrets.CI_USER }}
+        key: ${{ secrets.CI_SSH_KEY }}
+        script: |
+          mkdir -p ${{env.SCP_TAR_DIR}}
+    - name: send file by scp
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.CI_HOST }}
+        username: ${{ secrets.CI_USER }}
+        port: ${{ secrets.CI_SSH_PORT }}
+        key: ${{ secrets.CI_SSH_KEY }}
+        proxy_host: ${{ secrets.PROXY_HOST }}
+        proxy_port: ${{ secrets.PROXY_SSH_PORT }}
+        proxy_username: ${{ secrets.PROXY_USER }}
+        proxy_password: ${{ secrets.PROXY_PASSWORD }}
+        proxy_key: ${{ secrets.PROXY_SSH_KEY }}
+        source: ${{env.BUILT_DIR}}/${{env.JAR_NAME}}
+        target: ${{env.SCP_TAR_DIR}}
+        strip_components: ${{env.TAR_STRIP_PATH}}
+
+    - name: ssh after scp (run server)
+      uses: appleboy/ssh-action@v0.1.3
+      with:
+        host: ${{ secrets.CI_HOST }}
+        port: ${{ secrets.CI_SSH_PORT }}
+        username: ${{ secrets.CI_USER }}
+        key: ${{ secrets.CI_SSH_KEY }}
+        script: |
+          cd ${{env.SCP_TAR_DIR}}
+          JarFile=${{env.JAR_NAME}}
+          TarDir=${{env.RUNTIME_DIR}}
+          echo "make dir $TarDir if exists"
+          sudo mkdir -p $TarDir
+          echo "copy $JarFile to $TarDir"
+          sudo cp ${{env.SCP_TAR_DIR}}/$JarFile $TarDir
+          sudo chmod 777 $TarDir/*
+          cd /lib/systemd/system
+          if [ -e demo.service ];
+          then
+              echo "demo.service exists. stop it"
+              sudo systemctl stop demo;
+              echo "remove it";
+              sudo rm demo.service;
+          fi;
+          echo "write service"
+          sudo touch ${{env.SERVICE_NAME}}.service;
+          echo "[Unit]" | sudo tee -a ${{env.SERVICE_NAME}}.service;
+          echo "Description=demo" | sudo tee -a ${{env.SERVICE_NAME}}.service;
+          echo "After=syslog.target" | sudo tee -a ${{env.SERVICE_NAME}}.service;
+          echo "" | sudo tee -a ${{env.SERVICE_NAME}}.service;
+          echo "[Service]" | sudo tee -a demo.service;
+          echo "User=root" | sudo tee -a demo.service;
+          echo "ExecStart=$TarDir/$JarFile" | sudo tee -a ${{env.SERVICE_NAME}}.service;
+          echo "SuccessExitStatus=143" | sudo tee -a ${{env.SERVICE_NAME}}.service;
+          echo "" | sudo tee -a ${{env.SERVICE_NAME}}.service;
+          echo "[Install]" | sudo tee -a ${{env.SERVICE_NAME}}.service;
+          echo "WantedBy=multi-user.target" | sudo tee -a ${{env.SERVICE_NAME}}.service;
+          echo "reload service";
+          sudo systemctl daemon-reload;
+          echo "start service";
+          sudo systemctl start ${{env.SERVICE_NAME}};

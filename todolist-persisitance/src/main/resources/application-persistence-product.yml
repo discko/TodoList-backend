@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:mysql:///todolistdb?useUnicode=true&characterEncoding=utf8&useSSL=false
-    username: root
-    password: huncom
+    username: todolist
+    password: todolist
     driverClassName: com.mysql.cj.jdbc.Driver
 
   jpa:
