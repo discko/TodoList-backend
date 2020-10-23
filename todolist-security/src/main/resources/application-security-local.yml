@@ -1,0 +1,3 @@
+my-variables:
+  security:
+    env: local-security

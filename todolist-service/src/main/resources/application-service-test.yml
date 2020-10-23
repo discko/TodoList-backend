@@ -1,0 +1,3 @@
+my-variables:
+  service:
+    env: test-service

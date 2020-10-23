@@ -1,6 +1,8 @@
 package space.wudi.todolist.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +14,6 @@ import space.wudi.todolist.web.vo.VoUserQuery;
 @RestController
 @RequestMapping(value="/user")
 public class UserController {
-
 
     private final UserService userService;
 

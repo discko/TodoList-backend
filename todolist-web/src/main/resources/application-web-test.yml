@@ -1,0 +1,5 @@
+my-variables:
+  web:
+    env: test-web
+server:
+  port: 8083

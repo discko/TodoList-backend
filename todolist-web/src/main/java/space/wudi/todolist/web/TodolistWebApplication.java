@@ -1,18 +1,27 @@
 package space.wudi.todolist.web;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 
-//@EntityScan(basePackages = "space.wudi.todolist.persisitance.entity")
-//@EnableJpaRepositories(basePackages = "space.wudi.todolist.persisitance.repository")
 @SpringBootApplication(scanBasePackages = {
+        "space.wudi.todolist.common",
         "space.wudi.todolist.persisitance",
         "space.wudi.todolist.service",
+        "space.wudi.todolist.security",
         "space.wudi.todolist.web.*"
 })
 public class TodolistWebApplication {
+    @Value("${my-variables.web.env}")
+    public String ENV;
+
+    @Bean("webPrintEnv")
+    void printEnv(){
+        System.out.println("web is at "+ENV);
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(TodolistWebApplication.class, args);

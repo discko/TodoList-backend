@@ -1,0 +1,3 @@
+my-variables:
+  common:
+    env: product-common

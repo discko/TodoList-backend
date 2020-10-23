@@ -16,6 +16,10 @@
     <description>TodoList Persisitance Module</description>
     <packaging>jar</packaging>
 
+    <properties>
+        <newVariable>123</newVariable>
+    </properties>
+
 
     <dependencies>
         <!--<dependency>-->

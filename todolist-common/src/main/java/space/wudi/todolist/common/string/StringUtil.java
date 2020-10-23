@@ -1,4 +1,4 @@
-package space.wudi.totolist.common.string;
+package space.wudi.todolist.common.string;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;

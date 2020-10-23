@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active:
+    - "@web-profile@"
+    - "@security-profile@"
+    - "@service-profile@"
+    - "@persistence-profile@"
+    - "@common-profile@"

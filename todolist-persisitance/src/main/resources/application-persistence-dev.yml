@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mysql:///todolistdb-dev?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: huncom
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate.ddl-auto: update
+    show-sql: true
+
+my-variables:
+  persistence:
+    env: dev-persistence

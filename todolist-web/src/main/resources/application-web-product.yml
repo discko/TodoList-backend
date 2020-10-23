@@ -1,0 +1,6 @@
+my-variables:
+  web:
+    env: product-web
+
+server:
+  port: 8080

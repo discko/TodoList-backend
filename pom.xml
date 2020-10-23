@@ -17,6 +17,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <lalala.bbb>123aaa</lalala.bbb>
     </properties>
 
     <dependencies>
@@ -42,19 +43,28 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <!--<configuration>-->
-                    <!--<outputDirectory>./target</outputDirectory>-->
-                <!--</configuration>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
+                <artifactId>maven-resources-plugin</artifactId>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <delimiters>
+                        <delimiter>@</delimiter>
+                    </delimiters>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
                 </configuration>
             </plugin>
         </plugins>
@@ -67,5 +77,62 @@
         <module>todolist-security</module>
         <module>todolist-service</module>
     </modules>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <web-profile>web-local</web-profile>
+                <security-profile>security-local</security-profile>
+                <persistence-profile>persistence-local</persistence-profile>
+                <service-profile>service-local</service-profile>
+                <common-profile>common-local</common-profile>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <web-profile>web-dev</web-profile>
+                <security-profile>security-dev</security-profile>
+                <persistence-profile>persistence-dev</persistence-profile>
+                <service-profile>service-dev</service-profile>
+                <common-profile>common-dev</common-profile>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <web-profile>web-test</web-profile>
+                <security-profile>security-test</security-profile>
+                <persistence-profile>persistence-test</persistence-profile>
+                <service-profile>service-test</service-profile>
+                <common-profile>common-test</common-profile>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>product</id>
+            <properties>
+                <web-profile>web-product</web-profile>
+                <security-profile>security-product</security-profile>
+                <persistence-profile>persistence-product</persistence-profile>
+                <service-profile>service-product</service-profile>
+                <common-profile>common-product</common-profile>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
+
+
 
 </project>

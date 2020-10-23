@@ -7,7 +7,7 @@ import space.wudi.todolist.persisitance.entity.User;
 import space.wudi.todolist.persisitance.repository.UserRepository;
 import space.wudi.todolist.service.service.UserService;
 import space.wudi.todolist.service.dto.DtoUser;
-import space.wudi.totolist.common.string.StringUtil;
+import space.wudi.todolist.common.string.StringUtil;
 
 import java.util.Optional;
 
