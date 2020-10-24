@@ -101,7 +101,7 @@ jobs:
 
     - name: prepare env
       run: |
-        echo "RUNTIME_DIR="${{env.RUNTIME_DIR}}${{jobs.build.outputs.profile}} >> $GITHUB_ENV
+        echo "RUNTIME_DIR="${{env.RUNTIME_DIR}}${{needs.build.outputs.profile}} >> $GITHUB_ENV
         echo "RUNTIME_DIR="${{env.RUNTIME_DIR}}
 
     - name: restore jar
