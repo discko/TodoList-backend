@@ -90,7 +90,7 @@ jobs:
     env:
       TAR_STRIP_PATH: 2
       SCP_TAR_DIR: ~/todolist
-      RUNTIME_DIR: /var/todolist
+      RUNTIME_DIR: /var/todolist/${{env.PROFILE}}
       SERVICE_NAME: todolist-web
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -110,6 +110,7 @@ jobs:
         username: ${{ secrets.CI_USER }}
         key: ${{ secrets.CI_SSH_KEY }}
         script: |
+          echo "runtime dir="${{env.RUNTIME_DIR}}
           mkdir -p ${{env.SCP_TAR_DIR}}
 
     - name: send file by scp
