@@ -84,7 +84,7 @@ jobs:
       id: buildFinish
       run: |
         echo "build finished with profile "$PROFILE
-        echo ::set-output name=profile::$PROFILE"
+        echo "::set-output name=profile::$PROFILE"
 
 
   deploy:
