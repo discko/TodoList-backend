@@ -82,9 +82,9 @@ jobs:
 
     - name: post output
       id: buildFinish
-      run:
-        echo "build finished with profile"$PROFILE
-        echo "::set-output name=profile::${{env.PROFILE}}"
+      run: |
+        echo "build finished with profile "$PROFILE
+        echo ::set-output name=profile::$PROFILE"
 
 
   deploy:
