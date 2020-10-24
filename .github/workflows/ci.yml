@@ -12,10 +12,6 @@ env:
   BUILT_DIR: todolist-web/target
   JAR_NAME: TodoList-Web.jar
   PROFILE: dev #default profile
-  TAR_STRIP_PATH: 2
-  SCP_TAR_DIR: ~/todolist
-  RUNTIME_DIR: /var/todolist/ #remenver the ending slash
-  SERVICE_NAME: todolist-web
 
 jobs:
   build:
@@ -23,6 +19,7 @@ jobs:
 
     outputs:
       foundFile: ${{ steps.test_jar_exist.outputs.found }}
+      profile: ${{steps.buildFinish.outputs.profile}}
 
     steps:
 
@@ -84,16 +81,28 @@ jobs:
         key: ${{ runner.os }}-release-${{github.sha}}
 
     - name: post output
+      id: buildFinish
       run:
-        echo "build finished"
+        echo "build finished with profile"$PROFILE
+        echo "::set-output name=profile::"$PROFILE
 
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    env:
+      TAR_STRIP_PATH: 2
+      SCP_TAR_DIR: ~/todolist
+      RUNTIME_DIR: /var/todolist/
+      SERVICE_NAME: todolist-web
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
+    - name: prepare env
+      run: |
+        echo "RUNTIME_DIR="${{env.RUNTIME_DIR}}${{jobs.build.outputs.profile}} >> $GITHUB_ENV
+        echo "RUNTIME_DIR="${{env.RUNTIME_DIR}}
 
     - name: restore jar
       uses: actions/cache@v2
@@ -109,8 +118,6 @@ jobs:
         username: ${{ secrets.CI_USER }}
         key: ${{ secrets.CI_SSH_KEY }}
         script: |
-          echo "RUNTIME_DIR="${{env.RUNTIME_DIR}}${{env.PROFILE}} >>$GITHUB_ENV
-          echo "RUNTIME_DIR="${{env.RUNTIME_DIR}}
           mkdir -p ${{env.SCP_TAR_DIR}}
 
     - name: send file by scp
