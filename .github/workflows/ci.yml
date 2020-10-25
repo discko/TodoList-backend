@@ -56,9 +56,7 @@ jobs:
       run: |
         echo "current profile: "$PROFILE
         mvn -B clean install -f ./todolist-dependencies/pom.xml -Dmaven.test.skip=true;
-        MVN_BUILD="mvn -B clean package -P $PROFILE -Dmaven.test.skip=true"
-        echo $MVN_BUILD
-        $MVN_BUILD
+        mvn -B clean package -P $PROFILE -Dmaven.test.skip=true;
 
     - name: test existance
       id: test_jar_exist
@@ -104,7 +102,7 @@ jobs:
     - name: prepare env
       run: |
         echo "RUNTIME_DIR="${{env.RUNTIME_DIR}}${{needs.build.outputs.profile}} >> $GITHUB_ENV
-        echo "SERVICE_NAME="${{env.SERVICE_NAME}}${{needs.build.outputs.profile}} >> $GITHUB_ENV
+        echo "SERVICE_NAME="${{env.SERVICE_NAME}}"-"${{needs.build.outputs.profile}} >> $GITHUB_ENV
 
     - name: restore jar
       uses: actions/cache@v2
