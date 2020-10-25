@@ -56,7 +56,9 @@ jobs:
       run: |
         echo "current profile: "$PROFILE
         mvn -B clean install -f ./todolist-dependencies/pom.xml -Dmaven.test.skip=true;
-        mvn -B clean package -P $PROFILE -Dmaven.test.skip=true;
+        MVN_BUILD="mvn -B clean package -P $PROFILE -Dmaven.test.skip=true"
+        echo $MVN_BUILD
+        $MVN_BUILD
 
     - name: test existance
       id: test_jar_exist
