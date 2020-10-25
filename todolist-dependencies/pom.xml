@@ -73,6 +73,7 @@
         <profile>
             <id>local</id>
             <properties>
+                <profileName>local</profileName>
                 <web-profile>web-local</web-profile>
                 <security-profile>security-local</security-profile>
                 <persistence-profile>persistence-local</persistence-profile>
@@ -86,6 +87,7 @@
         <profile>
             <id>dev</id>
             <properties>
+                <profileName>dev</profileName>
                 <web-profile>web-dev</web-profile>
                 <security-profile>security-dev</security-profile>
                 <persistence-profile>persistence-dev</persistence-profile>
@@ -99,6 +101,7 @@
         <profile>
             <id>test</id>
             <properties>
+                <profileName>test</profileName>
                 <web-profile>web-test</web-profile>
                 <security-profile>security-test</security-profile>
                 <persistence-profile>persistence-test</persistence-profile>
@@ -112,6 +115,7 @@
         <profile>
             <id>product</id>
             <properties>
+                <profileName>product</profileName>
                 <web-profile>web-product</web-profile>
                 <security-profile>security-product</security-profile>
                 <persistence-profile>persistence-product</persistence-profile>
