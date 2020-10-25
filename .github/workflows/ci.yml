@@ -102,7 +102,7 @@ jobs:
     - name: prepare env
       run: |
         echo "RUNTIME_DIR="${{env.RUNTIME_DIR}}${{needs.build.outputs.profile}} >> $GITHUB_ENV
-        echo "RUNTIME_DIR="${{env.RUNTIME_DIR}}
+        echo "SERVICE_NAME="${{env.SERVICE_NAME}}${{needs.build.outputs.profile}} >> $GITHUB_ENV
 
     - name: restore jar
       uses: actions/cache@v2
