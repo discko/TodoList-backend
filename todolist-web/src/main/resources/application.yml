@@ -6,3 +6,8 @@ spring:
     - "@service-profile@"
     - "@persistence-profile@"
     - "@common-profile@"
+
+my-variables:
+  version:
+    profile: "@profileName@"
+    serial: 1
