@@ -1,3 +1,4 @@
 my-variables:
   common:
     env: local-common
+    serial: 1

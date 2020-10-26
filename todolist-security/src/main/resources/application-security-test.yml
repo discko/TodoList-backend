@@ -1,3 +1,4 @@
 my-variables:
   security:
     env: test-security
+    serial: 1

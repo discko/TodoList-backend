@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.DependsOn;
 
 @SpringBootApplication(scanBasePackages = {
         "space.wudi.todolist.common",
@@ -13,12 +14,24 @@ import org.springframework.context.annotation.Bean;
         "space.wudi.todolist.web.*"
 })
 public class TodolistWebApplication {
-    @Value("${my-variables.web.env}")
-    public String ENV;
+
+    public static String WEB_ENV;
+    public static String WEB_SERIAL;
+
+    @Bean
+    boolean bindWebEnv(
+            @Value("${my-variables.web.env}") String env,
+            @Value("${my-variables.web.serial}") String serial
+    ){
+        WEB_ENV=env;
+        WEB_SERIAL=serial;
+        return true;
+    }
 
     @Bean("webPrintEnv")
+    @DependsOn("bindWebEnv")
     void printEnv(){
-        System.out.println("web is at "+ENV);
+        System.out.printf("web is at %s.%s\n", WEB_ENV, WEB_SERIAL);
     }
 
     public static void main(String[] args) {

@@ -1,5 +1,6 @@
 my-variables:
   web:
     env: dev-web
+    serial: 1
 server:
   port: 8081

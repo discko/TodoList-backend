@@ -1,5 +1,6 @@
 my-variables:
   web:
     env: test-web
+    serial: 1
 server:
   port: 8083

@@ -12,3 +12,4 @@ spring:
 my-variables:
   persistence:
     env: product-persistence
+    serial: 1

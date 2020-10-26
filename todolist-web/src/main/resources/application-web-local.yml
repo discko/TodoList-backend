@@ -1,6 +1,6 @@
 my-variables:
   web:
     env: local-web
-
+    serial: 1
 server:
   port: 8082
