@@ -1,8 +1,10 @@
 package space.wudi.todolist.web.vo;
 
+import lombok.Data;
 import org.springframework.lang.Nullable;
 import space.wudi.todolist.service.dto.DtoUser;
 
+@Data
 public class VoUserQuery {
     private Long id;
     private String username;
@@ -24,47 +26,6 @@ public class VoUserQuery {
         this.username = username;
         this.newCreate = false;
         this.generatedPassword = null;
-    }
-
-    @Override
-    public String toString() {
-        return "VoUserQuery{" +
-                "username='" + username + '\'' +
-                ", newCreate=" + newCreate +
-                ", generatedPassword='" + generatedPassword + '\'' +
-                '}';
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public boolean isNewCreate() {
-        return newCreate;
-    }
-
-    public void setNewCreate(boolean newCreate) {
-        this.newCreate = newCreate;
-    }
-
-    public String getGeneratedPassword() {
-        return generatedPassword;
-    }
-
-    public void setGeneratedPassword(String generatedPassword) {
-        this.generatedPassword = generatedPassword;
     }
 
     public static VoUserQuery createFromDto(DtoUser dtoUser){

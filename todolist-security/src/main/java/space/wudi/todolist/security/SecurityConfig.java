@@ -1,15 +1,17 @@
 package space.wudi.todolist.security;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+@Slf4j
+@Configuration
 @EnableAutoConfiguration(exclude = {
         org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class
 })
-@Configuration
 public class SecurityConfig {
     public static String SECURITY_ENV;
     public static String SECURITY_SERIAL;
@@ -28,6 +30,6 @@ public class SecurityConfig {
     @Bean("securityPrintEnv")
     @DependsOn("bindSecurityEnv")
     void printEnv(){
-        System.out.printf("security is at %s.%s\n", SECURITY_ENV, SECURITY_SERIAL);
+        log.info("security is at {}.{}", SECURITY_ENV, SECURITY_SERIAL);
     }
 }

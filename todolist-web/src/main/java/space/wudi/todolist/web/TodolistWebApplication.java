@@ -1,11 +1,13 @@
 package space.wudi.todolist.web;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
 
+@Slf4j
 @SpringBootApplication(scanBasePackages = {
         "space.wudi.todolist.common",
         "space.wudi.todolist.persisitance",
@@ -31,7 +33,7 @@ public class TodolistWebApplication {
     @Bean("webPrintEnv")
     @DependsOn("bindWebEnv")
     void printEnv(){
-        System.out.printf("web is at %s.%s\n", WEB_ENV, WEB_SERIAL);
+        log.info("web is at {}.{}", WEB_ENV, WEB_SERIAL);
     }
 
     public static void main(String[] args) {

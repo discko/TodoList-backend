@@ -1,10 +1,12 @@
 package space.wudi.todolist.common;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+@Slf4j
 @Configuration
 public class CommonConfig {
 
@@ -24,6 +26,6 @@ public class CommonConfig {
     @Bean("commonPrintEnv")
     @DependsOn("bindCommonEnv")
     void printEnv(){
-        System.out.printf("Common is at %s.%s\n",COMMON_ENV, COMMON_SERIAL);
+        log.info("Common is at {}.{}",COMMON_ENV, COMMON_SERIAL);
     }
 }

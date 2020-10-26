@@ -1,11 +1,13 @@
 package space.wudi.todolist.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
+@Slf4j
 @Configuration("ServiceConfig")
 @ComponentScan(basePackages = {"space.wudi.todolist.service.impl"})
 public class ServiceConfig {
@@ -26,7 +28,7 @@ public class ServiceConfig {
     @Bean("servicePrintEnv")
     @DependsOn("bindServiceEnv")
     void printEnv(){
-        System.out.printf("service is at %s.%s\n", SERVICE_ENV, SERVICE_SERIAL);
+        log.info("service is at {}.{}", SERVICE_ENV, SERVICE_SERIAL);
     }
 
 }

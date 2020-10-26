@@ -4,3 +4,12 @@ my-variables:
     serial: 1
 server:
   port: 8083
+
+logging:
+  level:
+    space.wudi.todolist: debug
+  file:
+    clean-history-on-start: false
+    max-size: 10MB
+    name: logtest/Web.log
+    max-history: 30
