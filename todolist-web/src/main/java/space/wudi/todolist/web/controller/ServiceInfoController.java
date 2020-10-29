@@ -3,7 +3,6 @@ package space.wudi.todolist.web.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +16,6 @@ import space.wudi.todolist.web.WebConfig;
 import space.wudi.todolist.web.vo.VoModuleVersionInfo;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,11 +48,6 @@ public class ServiceInfoController {
 
     @GetMapping(value="/version/{module}")
     public VoModuleVersionInfo getModuleVersion(@PathVariable String module){
-        VoModuleVersionInfo mvi=_getModuleVersion(module);
-        return mvi;
-    }
-
-    private VoModuleVersionInfo _getModuleVersion(String module){
         VoModuleVersionInfo mvi=versionInfo.getOrDefault(module, null);
         log.debug("module {}: {}", module, mvi);
         return mvi;
@@ -65,7 +58,7 @@ public class ServiceInfoController {
             @PathVariable String module,
             @PathVariable String part
     ){
-        VoModuleVersionInfo mvi=_getModuleVersion(module);
+        VoModuleVersionInfo mvi=getModuleVersion(module);
         if(mvi==null){
             log.debug("module not found when get module.part");
             return null;
