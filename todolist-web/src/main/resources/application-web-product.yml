@@ -1,6 +1,16 @@
 my-variables:
   web:
     env: product-web
-
+    serial: 1
 server:
   port: 8084
+
+
+logging:
+  level:
+    space.wudi.todolist: info
+  file:
+    clean-history-on-start: false
+    max-size: 10MB
+    name: log/Web.log
+    max-history: 30

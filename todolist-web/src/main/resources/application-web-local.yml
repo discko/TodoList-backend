@@ -1,6 +1,16 @@
 my-variables:
   web:
     env: local-web
-
+    serial: 1
 server:
   port: 8082
+
+logging:
+  level:
+    space.wudi.todolist: debug
+  file:
+    clean-history-on-start: true
+    max-size: 10MB
+    name: log/Web.log
+    max-history: 30
+

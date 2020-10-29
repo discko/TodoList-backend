@@ -1,3 +1,4 @@
 my-variables:
   service:
     env: dev-service
+    serial: 1

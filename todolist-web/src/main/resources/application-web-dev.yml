@@ -1,5 +1,15 @@
 my-variables:
   web:
     env: dev-web
+    serial: 1
 server:
   port: 8081
+
+logging:
+  level:
+    space.wudi.todolist: debug
+  file:
+    clean-history-on-start: true
+    max-size: 10MB
+    name: logdev/Web.log
+    max-history: 30
