@@ -12,6 +12,7 @@ import space.wudi.todolist.persisitance.PersistenceConfig;
 import space.wudi.todolist.security.SecurityConfig;
 import space.wudi.todolist.service.ServiceConfig;
 import space.wudi.todolist.web.TodolistWebApplication;
+import space.wudi.todolist.web.WebConfig;
 import space.wudi.todolist.web.vo.VoModuleVersionInfo;
 
 import javax.annotation.PostConstruct;
@@ -37,7 +38,7 @@ public class ServiceInfoController {
             "bindPersistenceEnv",
             "bindCommonEnv"})
     void bindVersionInfo(){
-        versionInfo.put("web", new VoModuleVersionInfo(TodolistWebApplication.WEB_ENV, TodolistWebApplication.WEB_SERIAL));
+        versionInfo.put("web", new VoModuleVersionInfo(WebConfig.WEB_ENV, WebConfig.WEB_SERIAL));
         versionInfo.put("service", new VoModuleVersionInfo(ServiceConfig.SERVICE_ENV, ServiceConfig.SERVICE_SERIAL));
         versionInfo.put("security", new VoModuleVersionInfo(SecurityConfig.SECURITY_ENV, SecurityConfig.SECURITY_SERIAL));
         versionInfo.put("persistence", new VoModuleVersionInfo(PersistenceConfig.PERSISTENCE_ENV, PersistenceConfig.PERSISTENCE_SERIAL));
