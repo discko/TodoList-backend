@@ -48,6 +48,11 @@ public class ServiceInfoController {
 
     @GetMapping(value="/version/{module}")
     public VoModuleVersionInfo getModuleVersion(@PathVariable String module){
+        VoModuleVersionInfo mvi=_getModuleVersion(module);
+        return mvi;
+    }
+
+    private VoModuleVersionInfo _getModuleVersion(String module){
         VoModuleVersionInfo mvi=versionInfo.getOrDefault(module, null);
         log.debug("module {}: {}", module, mvi);
         return mvi;
@@ -58,7 +63,7 @@ public class ServiceInfoController {
             @PathVariable String module,
             @PathVariable String part
     ){
-        VoModuleVersionInfo mvi=getModuleVersion(module);
+        VoModuleVersionInfo mvi=_getModuleVersion(module);
         if(mvi==null){
             log.debug("module not found when get module.part");
             return null;
