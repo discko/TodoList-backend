@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -15,7 +16,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="todolist-common" target="1.8" />
-      <module name="todolist-dependencies" target="1.8" />
       <module name="todolist-parent" target="1.8" />
       <module name="todolist-persisitance" target="1.8" />
       <module name="todolist-security" target="1.8" />

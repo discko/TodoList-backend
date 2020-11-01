@@ -2,10 +2,11 @@ my-variables:
   web:
     env: product-web
     serial: 1
+swagger:
+  enable: false
+
 server:
   port: 8084
-
-
 logging:
   level:
     space.wudi.todolist: info
