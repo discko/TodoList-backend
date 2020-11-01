@@ -2,9 +2,11 @@ my-variables:
   web:
     env: local-web
     serial: 1
+swagger:
+  enable: true
+
 server:
   port: 8082
-
 logging:
   level:
     space.wudi.todolist: debug
@@ -13,4 +15,3 @@ logging:
     max-size: 10MB
     name: log/Web.log
     max-history: 30
-

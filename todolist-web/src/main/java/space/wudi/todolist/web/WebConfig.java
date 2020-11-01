@@ -12,6 +12,10 @@ import org.springframework.web.filter.CorsFilter;
 @Slf4j
 @Configuration
 public class WebConfig {
+
+    @Value("${swagger.enable}")
+    String swaggerEnable;
+
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedOrigin("*");
@@ -24,6 +28,7 @@ public class WebConfig {
 
     @Bean
     public CorsFilter corsFilter() {
+        log.info("-------- swagger status: {}", swaggerEnable);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", buildConfig());
         return new CorsFilter(source);
