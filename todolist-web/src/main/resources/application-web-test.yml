@@ -2,9 +2,11 @@ my-variables:
   web:
     env: test-web
     serial: 1
+swagger:
+  enable: true
+
 server:
   port: 8083
-
 logging:
   level:
     space.wudi.todolist: debug
